@@ -31,7 +31,7 @@ import com.himz.erc.util.TrustAllSSLSocketFactory;
 public class GetMethodEx {
 
 
-public String getInternetData() throws Exception{
+public String getInternetData(String url) throws Exception{
 
         new TrustAllManager();
         new TrustAllSSLSocketFactory();
@@ -55,7 +55,7 @@ public String getInternetData() throws Exception{
         	HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
         	
             HttpClient client = new DefaultHttpClient(httpParameters);
-            URI website = new URI("http://10.0.0.2/testserver/index.php?request=Hello");
+            URI website = new URI(url);
             HttpGet request = new HttpGet();
             request.setURI(website);
             HttpResponse response = client.execute(request);

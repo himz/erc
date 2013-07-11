@@ -64,7 +64,7 @@ private class LongOperation extends AsyncTask<String, Void, String> {
       String returned = null;
 
     try {
-        returned = test.getInternetData();
+        returned = test.getInternetData("www.google.com");
 
     } catch (Exception e) {
         // TODO Auto-generated catch block
