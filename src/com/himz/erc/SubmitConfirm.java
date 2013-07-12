@@ -53,14 +53,19 @@ private Context mCtx;
 		}		
 		
 		
-	    httpStuff = (TextView) findViewById(R.id.tvhttp);
-	    Toast.makeText(SubmitConfirm.this, "Starting Server ....", Toast.LENGTH_SHORT).show();
-	    
-	    
-	    AndroidServer server = new AndroidServer() ;
-	    server.start();
-	    
-	    new LongOperation().execute("");
+		if("I will do it".toLowerCase().equals(txtThings.getText().toString().toLowerCase())) {
+			textView1.setText("accept(john, dr, [e1, exercise_type,leg_lifts])");
+		}		
+		
+		/* Stop the server code for the demo*/
+//	    httpStuff = (TextView) findViewById(R.id.tvhttp);
+//	    Toast.makeText(SubmitConfirm.this, "Starting Server ....", Toast.LENGTH_SHORT).show();
+//	    
+//	    
+//	    AndroidServer server = new AndroidServer() ;
+//	    server.start();
+//	    
+//	    new LongOperation().execute("");
 
 	   
 		
@@ -75,72 +80,7 @@ private Context mCtx;
 
 	
 
-
-private class LongOperation extends AsyncTask<String, Void, String> {
-  @Override
-
-  protected String doInBackground(String... params) {
-
-      GetMethodEx test = new GetMethodEx();      
-      String returned = null;
-
-    try {
-        returned = test.getInternetData("http://localhost:8080/");
-
-    } catch (Exception e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-    }
-        return returned;
-  }      
-
-  @Override
-  protected void onPostExecute(String result) {    
-     httpStuff.setText(result);       
-  }
 	
-  
-}
-	
-}
-
-
-
-
-
-
-class AndroidServer extends NanoHTTPD {
-	public AndroidServer() {
-		super(8080);
-	}
-	
-	
-
-	@Override
-	public Response serve(String uri, Method method, Map<String, String> header, Map<String, String> parms, Map<String, String> files) {
-		System.out.println(method + " '" + uri + "' ");
-		String msg = "<html><body><h1>Hello server</h1>\n";
-		if (parms.get("username") == null)
-			msg +=
-			"<form action='?' method='get'>\n" +
-					"  <p>Your name: <input type='text' name='username'></p>\n" +
-					"</form>\n";
-		else
-			msg += "<p>Hello, " + parms.get("username") + "!</p>";
-
-		msg += "</body></html>\n";
-
-		return new NanoHTTPD.Response(msg);
-	}
-
-	public void start(){
-		ServerRunner.run(AndroidServer.class);
-		
-	}
-
-	//    public static void main(String[] args) {
-	//        ServerRunner.run(AndroidServer.class);
-	//    }
 }
 
 
