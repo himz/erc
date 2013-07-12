@@ -44,7 +44,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/linearLayout1"
         android:layout_below="@+id/linearLayout1"
@@ -55,14 +55,13 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tuple" />
+            android:text="Tuple:    " />
 
         <TextView
             android:id="@+id/textView1"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:text="TextView"
+            android:text="sd"
             android:textStyle="bold" />
 
     </LinearLayout>

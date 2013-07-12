@@ -198,6 +198,50 @@ public class WordDbAdapter {
 
 	}
 
+
+	public int fetchNextStateValue(int state1, int group, String str)
+	{
+		Cursor c = null;
+
+		try
+		{
+				c = mDb.rawQuery("select state2 from State where state1=" + "\""+state1+"\"" + "and grp=" + "\""+group+"\"" + "and label=" + "\""+str+"\"" , null);				
+		} catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		 
+		
+			
+		c.moveToFirst();
+		
+		return Integer.parseInt(c.getString(0)) ;
+		
+	}
+	
+	
+	public int fetchCurrentStateValue(int group, String str)
+	{
+		Cursor c = null;
+
+		try
+		{
+				c = mDb.rawQuery("select state1 from State where grp=" + "\""+group+"\"" + "and label=" + "\""+str+"\"" , null);				
+		} catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		 
+		
+			
+		c.moveToFirst();
+		int returnValue = Integer.parseInt(c.getString(0)) ;
+		c.close();
+		return returnValue;
+		
+	}
+	
+	
 	public List<String> getNextStateValue(int state1, int group)
 	{
 		String caption = null;

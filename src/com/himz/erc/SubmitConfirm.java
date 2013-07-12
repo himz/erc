@@ -32,28 +32,28 @@ private Context mCtx;
 		String thing = getIntent().getExtras().getString("things");
 		String action = getIntent().getExtras().getString("actions");
 		String adjective = getIntent().getExtras().getString("adjectives");
-		
+		String NP = getIntent().getExtras().getString("NP");
 		TextView  txtThings =  (TextView) findViewById(R.id.txtSubmission);
-		txtThings.setText(thing + " " + action + " " + adjective);
+		txtThings.setText(thing + " " + action + " " + adjective + " " + NP);
 	    textView1 = (TextView) findViewById(R.id.textView1);
 		
-		if("I want to rest".toLowerCase().equals(txtThings.getText().toString().toLowerCase())) {
+		if("I want to rest".toLowerCase().trim().equals(txtThings.getText().toString().toLowerCase().trim())) {
 			textView1.setText("propose(john,dr,[X,current_state,suspended])");
 		}
-		if("I want to stop".toLowerCase().equals(txtThings.getText().toString().toLowerCase())) {
+		if("I want to stop".toLowerCase().trim().equals(txtThings.getText().toString().toLowerCase().trim())) {
 			textView1.setText("propose(john,dr,[X,current_state,terminated])");
 		}
 		
-		if("my leg hurts".toLowerCase().equals(txtThings.getText().toString().toLowerCase())) {
+		if("my leg hurts".toLowerCase().trim().equals(txtThings.getText().toString().toLowerCase().trim())) {
 			textView1.setText("inform(john,dr, [leg,state,pain])");
 		}		
 		
-		if("john do leg_lifts".toLowerCase().equals(txtThings.getText().toString().toLowerCase())) {
+		if("john do leg_lifts".toLowerCase().trim().equals(txtThings.getText().toString().toLowerCase().trim())) {
 			textView1.setText("propose(dr, john, [e1, exercise_type,leg_lifts])");
 		}		
 		
 		
-		if("I will do it".toLowerCase().equals(txtThings.getText().toString().toLowerCase())) {
+		if("I will do it".toLowerCase().trim().equals(txtThings.getText().toString().toLowerCase().trim())) {
 			textView1.setText("accept(john, dr, [e1, exercise_type,leg_lifts])");
 		}		
 		

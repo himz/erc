@@ -68,16 +68,18 @@ OnItemSelectedListener{
 		spnSelect4 =  (Spinner) findViewById(R.id.spinner4);
 		editText1 =  (EditText) findViewById(R.id.editText1);	 
 		
+		
 		spnSelect2.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				loadSpinnerData(3, group, spnSelect3);
+				int currentState = db.fetchCurrentStateValue(group, spnSelect2.getSelectedItem().toString());
+				int test = db.fetchNextStateValue(currentState, group, spnSelect2.getSelectedItem().toString() );
+				loadSpinnerData(test, group, spnSelect3);
 			}
 
 			@Override
 			public void onNothingSelected(AdapterView<?> parent) {
-				// TODO Auto-generated method stub
 				
 			}
 			});
@@ -86,13 +88,37 @@ OnItemSelectedListener{
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				if(loadSpinnerData(11, group, spnSelect4) == 0){
+				int currentState = db.fetchCurrentStateValue(group, spnSelect3.getSelectedItem().toString());
+				int test = db.fetchNextStateValue(currentState, group, spnSelect3.getSelectedItem().toString() );
+				if(loadSpinnerData(test, group, spnSelect4) == 0){
 					editText1.setText(spnSelect1.getSelectedItem().toString()  + " " + spnSelect2.getSelectedItem().toString() + " " +  spnSelect3.getSelectedItem().toString());
+					
 					spnSelect4.setVisibility(4);
 				} else {
 					spnSelect4.setVisibility(0);
 				}
 				
+			}
+
+			
+			
+			
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+				
+			}
+			});
+		
+		
+		
+
+		spnSelect4.setOnItemSelectedListener(new OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				editText1.setText(spnSelect1.getSelectedItem().toString()  + " " + spnSelect2.getSelectedItem().toString() + " " +  spnSelect3.getSelectedItem().toString() + " " +  spnSelect4.getSelectedItem().toString());
+					
 			}
 
 			@Override
@@ -110,8 +136,9 @@ OnItemSelectedListener{
 				
 				//group = db.getInitialGroupNumber(txtThings.getSelectedItem().toString());
 				group = spnSelect1.getSelectedItemPosition() + 1;
-				
-				loadSpinnerData(2, group, spnSelect2);
+				int currentState = db.fetchCurrentStateValue(group, spnSelect1.getSelectedItem().toString());
+				int test = db.fetchNextStateValue(currentState, group, spnSelect1.getSelectedItem().toString() );
+				loadSpinnerData(test, group, spnSelect2);
 				//txtCurrentSelected.setText(txtCurrentSelected.getText() + txtThings.getSelectedItem().toString());
 				spnSelect2.setEnabled(true);
 			}
@@ -128,8 +155,8 @@ OnItemSelectedListener{
         db = new WordDbAdapter(this);
         db.open();
 		
-//		if(flag)
-//		{
+		if(flag)
+		{
 			// label, state1, state2, textType, groupNumber
 			db.createStateRow("I",1, 2, 2, 1);
 			db.createStateRow("am",2, 3, 2, 1);
@@ -147,8 +174,8 @@ OnItemSelectedListener{
 			
 			db.createStateRow("my",1, 2, 2, 2);
 			db.createStateRow("knee",2, 3, 2, 2);
-			db.createStateRow("leg",2, 4, 2, 2);
-			db.createStateRow("arm",2, 5, 2, 2);
+			db.createStateRow("leg",2, 3, 2, 2);
+			db.createStateRow("arm",2, 3, 2, 2);
 			db.createStateRow("hurts",3, 6, 2, 2);	
 
 			db.createStateRow("john",1, 2, 2, 3);
@@ -158,7 +185,7 @@ OnItemSelectedListener{
 		    
 		    
 			flag = false;
-//		}
+	}
 
 
 		// Loading spinner data from database
@@ -181,14 +208,21 @@ OnItemSelectedListener{
 				Spinner  txtThings =  (Spinner) findViewById(R.id.spinner1);
 				Spinner  txtActions =  (Spinner) findViewById(R.id.spinner2);
 				Spinner  txtAdjectives =  (Spinner) findViewById(R.id.spinner3);
-
+				
 				
 				Intent i = new Intent( MainActivity.this , SubmitConfirm.class);
 				i.putExtra("things", txtThings.getSelectedItem().toString());
 				i.putExtra("actions", txtActions.getSelectedItem().toString());
 				i.putExtra("adjectives", txtAdjectives.getSelectedItem().toString());
-
-
+				try{
+					i.putExtra("NP", spnSelect4.getSelectedItem().toString());
+					
+	
+				} catch (Exception e){
+					i.putExtra("NP", "");
+					
+				}
+				
 				startActivity(i);
 
 
