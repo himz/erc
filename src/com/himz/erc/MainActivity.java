@@ -2,6 +2,12 @@ package com.himz.erc;
 
 
 import java.util.List;
+import java.util.Map;
+
+import com.himz.erc.util.NanoHTTPD;
+import com.himz.erc.util.ServerRunner;
+import com.himz.erc.util.NanoHTTPD.Method;
+import com.himz.erc.util.NanoHTTPD.Response;
 
 
 
@@ -80,7 +86,7 @@ OnItemSelectedListener{
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				if(loadSpinnerData(4, group, spnSelect4) == 0){
+				if(loadSpinnerData(11, group, spnSelect4) == 0){
 					editText1.setText(spnSelect1.getSelectedItem().toString()  + " " + spnSelect2.getSelectedItem().toString() + " " +  spnSelect3.getSelectedItem().toString());
 					spnSelect4.setVisibility(4);
 				} else {
@@ -122,11 +128,13 @@ OnItemSelectedListener{
         db = new WordDbAdapter(this);
         db.open();
 		
-		if(flag)
-		{
-			
+//		if(flag)
+//		{
+			// label, state1, state2, textType, groupNumber
 			db.createStateRow("I",1, 2, 2, 1);
 			db.createStateRow("am",2, 3, 2, 1);
+			db.createStateRow("will",2, 11, 2, 1);
+			
 			db.createStateRow("fine",3, 4, 2, 1);
 			db.createStateRow("tired",3, 5, 2, 1);
 			db.createStateRow("cold",3, 6, 2, 1);
@@ -134,14 +142,23 @@ OnItemSelectedListener{
 			db.createStateRow("happy",3, 8, 2, 1);
 			db.createStateRow("upset",3, 9, 2, 1);
 			db.createStateRow("worried",3, 10, 2,1);
+			db.createStateRow("do",11, 12, 2, 1);
+			db.createStateRow("it",12, 13, 2, 1);
 			
 			db.createStateRow("my",1, 2, 2, 2);
 			db.createStateRow("knee",2, 3, 2, 2);
 			db.createStateRow("leg",2, 4, 2, 2);
 			db.createStateRow("arm",2, 5, 2, 2);
 			db.createStateRow("hurts",3, 6, 2, 2);	
+
+			db.createStateRow("john",1, 2, 2, 3);
+		    db.createStateRow("do",2, 3, 2, 3);
+		    db.createStateRow("leg_lifts",3, 4, 2, 3);
+		    
+		    
+		    
 			flag = false;
-		}
+//		}
 
 
 		// Loading spinner data from database
