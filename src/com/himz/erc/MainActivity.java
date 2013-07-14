@@ -158,7 +158,7 @@ OnItemSelectedListener{
 		if(flag)
 		{
 			// label, state1, state2, textType, groupNumber
-			db.createStateRow("I",1, 2, 2, 1);
+		/*	db.createStateRow("I",1, 2, 2, 1);
 			db.createStateRow("am",2, 3, 2, 1);
 			db.createStateRow("will",2, 11, 2, 1);
 			
@@ -180,7 +180,7 @@ OnItemSelectedListener{
 
 			db.createStateRow("john",1, 2, 2, 3);
 		    db.createStateRow("do",2, 3, 2, 3);
-		    db.createStateRow("leg_lifts",3, 4, 2, 3);
+		    db.createStateRow("leg_lifts",3, 4, 2, 3); */
 		    
 		    
 		    

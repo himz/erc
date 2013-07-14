@@ -88,11 +88,57 @@ public class WordDbAdapter {
 
 
 			/* Also seed data for default values */
-
+			seedData(db);
+			
 			/*Toast.makeText(context, "4 table created", Toast.LENGTH_LONG).show();*/
 
 		}
 
+		public void seedData(SQLiteDatabase db){
+			// label, state1, state2, textType, groupNumber
+			createStateRow(db, "I",1, 2, 2, 1);
+			createStateRow(db, "am",2, 3, 2, 1);
+			createStateRow(db, "will",2, 11, 2, 1);
+
+			createStateRow(db, "fine",3, 4, 2, 1);
+			createStateRow(db, "tired",3, 5, 2, 1);
+			createStateRow(db, "cold",3, 6, 2, 1);
+			createStateRow(db, "hot",3, 7, 2, 1);
+			createStateRow(db, "happy",3, 8, 2, 1);
+			createStateRow(db, "upset",3, 9, 2, 1);
+			createStateRow(db, "worried",3, 10, 2,1);
+			createStateRow(db, "do",11, 12, 2, 1);
+			createStateRow(db, "it",12, 13, 2, 1);
+
+			createStateRow(db, "my",1, 2, 2, 2);
+			createStateRow(db, "knee",2, 3, 2, 2);
+			createStateRow(db, "leg",2, 3, 2, 2);
+			createStateRow(db, "arm",2, 3, 2, 2);
+			createStateRow(db, "hurts",3, 6, 2, 2);	
+
+			createStateRow(db, "john",1, 2, 2, 3);
+			createStateRow(db, "do",2, 3, 2, 3);
+			createStateRow(db, "leg_lifts",3, 4, 2, 3);
+			
+		}
+		
+		
+		
+
+
+		public long createStateRow(SQLiteDatabase db,String label,int state1, int state2, int textType, int grp)
+		{
+			ContentValues initialValues = new ContentValues();
+			initialValues.put("label", label);
+			initialValues.put("state1", state1);
+			initialValues.put("state2", state2);
+			initialValues.put("textType", textType);
+			initialValues.put("grp", grp);
+			System.out.println("HIMZ: creating values");
+			return db.insert("State", null, initialValues);
+		}
+
+		
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
