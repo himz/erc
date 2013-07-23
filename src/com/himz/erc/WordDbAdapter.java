@@ -30,14 +30,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 /**
- * Simple notes database access helper class. Defines the basic CRUD operations
- * for the notepad example, and gives the ability to list all notes as well as
- * retrieve or modify a specific note.
- * 
- * This has been improved from the first version of this tutorial through the
- * addition of better error handling and also using returning a Cursor instead
- * of using a collection of inner classes (which is less scalable and not
- * recommended).
+ * Simple ERC database access helper class. Defines the basic 
  */
 public class WordDbAdapter {
 
@@ -99,7 +92,6 @@ public class WordDbAdapter {
 			createStateRow(db, "I",1, 2, 2, 1);
 			createStateRow(db, "am",2, 3, 2, 1);
 			createStateRow(db, "will",2, 11, 2, 1);
-
 			createStateRow(db, "fine",3, 4, 2, 1);
 			createStateRow(db, "tired",3, 5, 2, 1);
 			createStateRow(db, "cold",3, 6, 2, 1);
@@ -110,12 +102,16 @@ public class WordDbAdapter {
 			createStateRow(db, "do",11, 12, 2, 1);
 			createStateRow(db, "it",12, 13, 2, 1);
 
+			
+			
 			createStateRow(db, "my",1, 2, 2, 2);
 			createStateRow(db, "knee",2, 3, 2, 2);
 			createStateRow(db, "leg",2, 3, 2, 2);
 			createStateRow(db, "arm",2, 3, 2, 2);
 			createStateRow(db, "hurts",3, 6, 2, 2);	
 
+			
+			
 			createStateRow(db, "john",1, 2, 2, 3);
 			createStateRow(db, "do",2, 3, 2, 3);
 			createStateRow(db, "leg_lifts",3, 4, 2, 3);
