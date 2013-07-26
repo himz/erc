@@ -1,5 +1,8 @@
 package com.himz.erc;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.Map;
 
 import com.himz.erc.util.NanoHTTPD;
@@ -58,24 +61,82 @@ private Context mCtx;
 		}		
 		
 		/* Stop the server code for the demo*/
-//	    httpStuff = (TextView) findViewById(R.id.tvhttp);
+	    httpStuff = (TextView) findViewById(R.id.tvhttp1);
 //	    Toast.makeText(SubmitConfirm.this, "Starting Server ....", Toast.LENGTH_SHORT).show();
 //	    
 //	    
 //	    AndroidServer server = new AndroidServer() ;
 //	    server.start();
 //	    
-//	    new LongOperation().execute("");
+	    new LongOperation().execute("");
 
 	   
 		
 	}
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.submit_confirm, menu);
 		return true;
+	}
+
+	
+
+
+	private class LongOperation extends AsyncTask<String, Void, String> {
+		@Override
+		protected String doInBackground(String... params) {
+
+			GetMethodEx test = new GetMethodEx();
+			String returned = null;
+
+			try {
+				returned = test
+						.getInternetData("http://209.129.244.24:5000/diga_sys?sentence=john%20do%20leg_lifts&spact=propose(dr,john,[e1,exercise_type,leg_lifts])");
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return returned;
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			httpStuff.setText(interpretHtml(result));
+		}
+		
+		
+
+		/**
+		 * Function to parse the html and print out the spat.
+		 * @param s
+		 * @return
+		 */
+		private String interpretHtml(String s){
+		    String text = null;
+		    
+		    BufferedReader bufReader = new BufferedReader(new StringReader(s));
+		    String line=null;
+		    try {
+				while( (line=bufReader.readLine()) != null )
+				{
+					if(line.startsWith("<div class=\"spact\">")){
+				    	// Get the spact out of the html
+				         text = line.substring(19, line.length() - 6);
+				         break;
+				    }
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+		    return text;
+		}
+
 	}
 
 	

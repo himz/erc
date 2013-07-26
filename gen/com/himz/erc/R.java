@@ -34,7 +34,7 @@ public final class R {
         public static final int TextView02=0x7f090006;
         public static final int TextView03=0x7f090008;
         public static final int TextView04=0x7f090010;
-        public static final int action_settings=0x7f090017;
+        public static final int action_settings=0x7f090019;
         public static final int button1=0x7f09000d;
         public static final int button2=0x7f09000e;
         public static final int editText1=0x7f09000b;
@@ -50,8 +50,10 @@ public final class R {
         public static final int textView1=0x7f090016;
         public static final int textView2=0x7f090012;
         public static final int textView3=0x7f090015;
+        public static final int textView4=0x7f090017;
         public static final int textView5=0x7f090013;
         public static final int tvhttp=0x7f09000a;
+        public static final int tvhttp1=0x7f090018;
         public static final int txtSubmission=0x7f090014;
     }
     public static final class layout {

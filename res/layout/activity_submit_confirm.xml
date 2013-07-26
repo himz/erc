@@ -66,4 +66,23 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/linearLayout3"
+        android:layout_below="@+id/linearLayout3"
+        android:layout_marginTop="42dp"
+        android:text="Response" />
+
+    <TextView
+        android:id="@+id/tvhttp1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView4"
+        android:layout_alignBottom="@+id/textView4"
+        android:layout_marginLeft="41dp"
+        android:layout_toRightOf="@+id/linearLayout3"
+        android:text="TextView" />
+
 </RelativeLayout>
