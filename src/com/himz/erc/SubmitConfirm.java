@@ -10,6 +10,7 @@ import com.himz.erc.util.ServerRunner;
 import com.himz.erc.util.NanoHTTPD.Method;
 import com.himz.erc.util.NanoHTTPD.Response;
 
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
@@ -23,6 +24,7 @@ public class SubmitConfirm extends Activity {
 
 TextView httpStuff;
 TextView textView1;
+TextView  txtThings;
 private Context mCtx;
 
 	
@@ -36,8 +38,8 @@ private Context mCtx;
 		String action = getIntent().getExtras().getString("actions");
 		String adjective = getIntent().getExtras().getString("adjectives");
 		String NP = getIntent().getExtras().getString("NP");
-		TextView  txtThings =  (TextView) findViewById(R.id.txtSubmission);
-		txtThings.setText(thing + " " + action + " " + adjective + " " + NP);
+		txtThings =  (TextView) findViewById(R.id.txtSubmission);
+		txtThings.setText((thing + " " + action + " " + adjective + " " + NP).trim());
 	    textView1 = (TextView) findViewById(R.id.textView1);
 		
 		if("I want to rest".toLowerCase().trim().equals(txtThings.getText().toString().toLowerCase().trim())) {
@@ -128,10 +130,18 @@ private Context mCtx;
 
 			GetMethodEx test = new GetMethodEx();
 			String returned = null;
-
+			String serverURL = "http://209.129.244.24:5000/diga_sys";
+			String sentence = "john do leg_lifts";		// Change it to dynamically getting from the text box
+			String spact = "propose(dr,john,[e1,exercise_type,leg_lifts])";	 // Change it to get dynamically
+			String url= "";
+			sentence = txtThings.getText().toString();
 			try {
-				returned = test
-						.getInternetData("http://209.129.244.24:5000/diga_sys?sentence=john%20do%20leg_lifts&spact=propose(dr,john,[e1,exercise_type,leg_lifts])");
+				url = createGetURL(serverURL, sentence, spact);
+				//returned = test
+					//	.getInternetData("http://209.129.244.24:5000/diga_sys?sentence=john%20do%20leg_lifts&spact=propose(dr,john,[e1,exercise_type,leg_lifts])");
+
+				
+				returned = test.getInternetData(url);
 
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -143,6 +153,16 @@ private Context mCtx;
 		@Override
 		protected void onPostExecute(String result) {
 			httpStuff.setText(interpretHtml(result));
+		}
+		
+		private String createGetURL(String serverURL, String sentence, String spact){
+			String url = "";
+			
+			//http://stackoverflow.com/questions/573184/java-convert-string-to-valid-uri-object
+			//String requestURL = String.format("http://www.example.com/?a=%s&b=%s", Uri.encode("foo bar"), Uri.encode("100% fubar'd"));
+			
+			url = String.format(serverURL + "?sentence=%s&spact=%s", Uri.encode(sentence), Uri.encode(spact));
+			return url;
 		}
 		
 		/**
@@ -168,11 +188,14 @@ private Context mCtx;
 		 */
 		private String interpretHtml(String s){
 		    String text = "";
-		    
+		    String sentence = "";
+		    String speaker = "";
+		    if(s == null)
+		    	return null;
 		    BufferedReader bufReader = new BufferedReader(new StringReader(s));
 		    String line=null;
 		    try {
-				while( (line=bufReader.readLine()) != null )
+		    	while( (line=bufReader.readLine()) != null )
 				{
 					if(line.startsWith("<div class=\"sentence\">")){
 				    	// Get the spact out of the html
