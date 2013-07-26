@@ -17,53 +17,52 @@ import android.widget.Toast;
 
 public class SubmitConfirm extends Activity {
 
+	TextView httpStuff;
+	TextView textView1;
+	private Context mCtx;
 
-TextView httpStuff;
-TextView textView1;
-private Context mCtx;
-
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_submit_confirm);
-		
-		
+
 		String thing = getIntent().getExtras().getString("things");
 		String action = getIntent().getExtras().getString("actions");
 		String adjective = getIntent().getExtras().getString("adjectives");
-		
-		TextView  txtThings =  (TextView) findViewById(R.id.txtSubmission);
+
+		TextView txtThings = (TextView) findViewById(R.id.txtSubmission);
 		txtThings.setText(thing + " " + action + " " + adjective);
-	    textView1 = (TextView) findViewById(R.id.textView1);
-		
-		if("I want to rest".toLowerCase().equals(txtThings.getText().toString().toLowerCase())) {
+		textView1 = (TextView) findViewById(R.id.textView1);
+
+		if ("I want to rest".toLowerCase().equals(
+				txtThings.getText().toString().toLowerCase())) {
 			textView1.setText("propose(john,dr,[X,current_state,suspended])");
 		}
-		if("I want to stop".toLowerCase().equals(txtThings.getText().toString().toLowerCase())) {
+		if ("I want to stop".toLowerCase().equals(
+				txtThings.getText().toString().toLowerCase())) {
 			textView1.setText("propose(john,dr,[X,current_state,terminated])");
 		}
-		
-		if("my leg hurts".toLowerCase().equals(txtThings.getText().toString().toLowerCase())) {
-			textView1.setText("inform(john,dr, [leg,state,pain])");
-		}		
-		
-		if("john do leg_lifts".toLowerCase().equals(txtThings.getText().toString().toLowerCase())) {
-			textView1.setText("propose(dr, john, [e1, exercise_type,leg_lifts])");
-		}		
-		
-		
-	    httpStuff = (TextView) findViewById(R.id.tvhttp);
-	    Toast.makeText(SubmitConfirm.this, "Starting Server ....", Toast.LENGTH_SHORT).show();
-	    
-	    
-	    AndroidServer server = new AndroidServer() ;
-	    server.start();
-	    
-	    new LongOperation().execute("");
 
-	   
-		
+		if ("my leg hurts".toLowerCase().equals(
+				txtThings.getText().toString().toLowerCase())) {
+			textView1.setText("inform(john,dr, [leg,state,pain])");
+		}
+
+		if ("john do leg_lifts".toLowerCase().equals(
+				txtThings.getText().toString().toLowerCase())) {
+			textView1
+					.setText("propose(dr, john, [e1, exercise_type,leg_lifts])");
+		}
+
+		httpStuff = (TextView) findViewById(R.id.tvhttp);
+		Toast.makeText(SubmitConfirm.this, "Starting Server ....",
+				Toast.LENGTH_SHORT).show();
+
+		//AndroidServer server = new AndroidServer();
+		//server.start();
+
+		new LongOperation().execute("");
+
 	}
 
 	@Override
@@ -73,74 +72,68 @@ private Context mCtx;
 		return true;
 	}
 
-	
+	private class AndroidServer extends NanoHTTPD {
+		public AndroidServer() {
+			super(8080);
+		}
 
+		@Override
+		public Response serve(String uri, Method method,
+				Map<String, String> header, Map<String, String> parms,
+				Map<String, String> files) {
+			System.out.println(method + " '" + uri + "' ");
+			String msg = "<html><body><h1>Hello server</h1>\n";
+			if (parms.get("username") == null)
+				msg += "<form action='?' method='get'>\n"
+						+ "  <p>Your name: <input type='text' name='username'></p>\n"
+						+ "</form>\n";
+			else
+				msg += "<p>Hello, " + parms.get("username") + "!</p>";
 
-private class LongOperation extends AsyncTask<String, Void, String> {
-  @Override
+			msg += "</body></html>\n";
 
-  protected String doInBackground(String... params) {
+			return new NanoHTTPD.Response(msg);
+		}
 
-      GetMethodEx test = new GetMethodEx();      
-      String returned = null;
+		public void start() {
+			ServerRunner.run(AndroidServer.class);
 
-    try {
-        returned = test.getInternetData("http://localhost:8080/");
+		}
 
-    } catch (Exception e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-    }
-        return returned;
-  }      
-
-  @Override
-  protected void onPostExecute(String result) {    
-     httpStuff.setText(result);       
-  }
-	
-  
-}
-	
-}
-
-
-
-
-
-
-class AndroidServer extends NanoHTTPD {
-	public AndroidServer() {
-		super(8080);
+		// public static void main(String[] args) {
+		// ServerRunner.run(AndroidServer.class);
+		// }
 	}
 	
 	
+	private class LongOperation extends AsyncTask<String, Void, String> {
+		@Override
+		protected String doInBackground(String... params) {
 
-	@Override
-	public Response serve(String uri, Method method, Map<String, String> header, Map<String, String> parms, Map<String, String> files) {
-		System.out.println(method + " '" + uri + "' ");
-		String msg = "<html><body><h1>Hello server</h1>\n";
-		if (parms.get("username") == null)
-			msg +=
-			"<form action='?' method='get'>\n" +
-					"  <p>Your name: <input type='text' name='username'></p>\n" +
-					"</form>\n";
-		else
-			msg += "<p>Hello, " + parms.get("username") + "!</p>";
+			GetMethodEx test = new GetMethodEx();
+			String returned = null;
 
-		msg += "</body></html>\n";
+			try {
+				returned = test
+						.getInternetData("http://www.google.com");
 
-		return new NanoHTTPD.Response(msg);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return returned;
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			httpStuff.setText(result);
+		}
+
 	}
 
-	public void start(){
-		ServerRunner.run(AndroidServer.class);
-		
-	}
-
-	//    public static void main(String[] args) {
-	//        ServerRunner.run(AndroidServer.class);
-	//    }
+	
+	
+	
 }
 
 
