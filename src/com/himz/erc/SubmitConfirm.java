@@ -62,13 +62,14 @@ private Context mCtx;
 		
 		/* Stop the server code for the demo*/
 	    httpStuff = (TextView) findViewById(R.id.tvhttp1);
-//	    Toast.makeText(SubmitConfirm.this, "Starting Server ....", Toast.LENGTH_SHORT).show();
-//	    
-//	    
-//	    AndroidServer server = new AndroidServer() ;
-//	    server.start();
-//	    
 	    new LongOperation().execute("");
+	   // Toast.makeText(SubmitConfirm.this, "Starting Server ....", Toast.LENGTH_SHORT).show();
+	    
+	    
+	   // AndroidServer server = new AndroidServer() ;
+	    //server.start();
+  
+	  
 
 	   
 		
@@ -81,6 +82,42 @@ private Context mCtx;
 		getMenuInflater().inflate(R.menu.submit_confirm, menu);
 		return true;
 	}
+
+	
+	private class AndroidServer extends NanoHTTPD {
+		public AndroidServer() {
+			super(8080);
+		}
+
+		@Override
+		public Response serve(String uri, Method method,
+				Map<String, String> header, Map<String, String> parms,
+				Map<String, String> files) {
+			System.out.println(method + " '" + uri + "' ");
+			String msg = "<html><body><h1>Hello server</h1>\n";
+			if (parms.get("username") == null)
+				msg += "<form action='?' method='get'>\n"
+						+ "  <p>Your name: <input type='text' name='username'></p>\n"
+						+ "</form>\n";
+			else
+				msg += "<p>Hello, " + parms.get("username") + "!</p>";
+
+			msg += "</body></html>\n";
+
+			return new NanoHTTPD.Response(msg);
+		}
+
+		public void start() {
+			//ServerRunner.run(AndroidServer.class);
+			//ServerRunner.executeInstance(new AndroidServer());
+
+		}
+
+		// public static void main(String[] args) {
+		// ServerRunner.run(AndroidServer.class);
+		// }
+	}
+
 
 	
 
@@ -108,6 +145,20 @@ private Context mCtx;
 			httpStuff.setText(interpretHtml(result));
 		}
 		
+		/**
+		 * Get the speaker from the context
+		 * @param spact
+		 * @return
+		 */
+	   private String getSpeaker(String spact){
+		   String speaker =  null ;
+		   String temp;
+		   String[] r = spact.split(",");
+		   temp = r[1];
+		   speaker = temp.substring(temp.indexOf('(') + 1, temp.length());
+		   		   
+		   return speaker;
+	   }
 		
 
 		/**
@@ -116,17 +167,21 @@ private Context mCtx;
 		 * @return
 		 */
 		private String interpretHtml(String s){
-		    String text = null;
+		    String text = "";
 		    
 		    BufferedReader bufReader = new BufferedReader(new StringReader(s));
 		    String line=null;
 		    try {
 				while( (line=bufReader.readLine()) != null )
 				{
-					if(line.startsWith("<div class=\"spact\">")){
+					if(line.startsWith("<div class=\"sentence\">")){
 				    	// Get the spact out of the html
-				         text = line.substring(19, line.length() - 6);
-				         break;
+				         text = text +  line.substring(22, line.length() - 6) + "\n";
+				         continue; 
+				    } else if(line.startsWith("<div class=\"spact\">")){
+				    	// Get the spact out of the html
+				    	 text = getSpeaker(line) + " -> " + text ;
+				         continue;
 				    }
 				}
 			} catch (IOException e) {
