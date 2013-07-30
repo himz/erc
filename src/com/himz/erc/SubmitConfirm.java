@@ -134,7 +134,7 @@ private Context mCtx;
 			String sentence = "john do leg_lifts";		// Change it to dynamically getting from the text box
 			String spact = "propose(dr,john,[e1,exercise_type,leg_lifts])";	 // Change it to get dynamically
 			String url= "";
-			sentence = txtThings.getText().toString();
+			sentence = txtThings.getText().toString();   // Get the sentence selected by the user. 
 			try {
 				url = createGetURL(serverURL, sentence, spact);
 				//returned = test
