@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.himz.erc.util.NanoHTTPD;
 import com.himz.erc.util.ServerRunner;
@@ -26,12 +28,21 @@ TextView httpStuff;
 TextView textView1;
 TextView  txtThings;
 private Context mCtx;
+private Timer myTimer;
 
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_submit_confirm);
+		myTimer = new Timer();
+		myTimer.schedule(new TimerTask() {			
+			@Override
+			public void run() {
+				TimerMethod();
+			}
+			
+		}, 0, 2000);
 		
 		
 		String thing = getIntent().getExtras().getString("things");
@@ -86,6 +97,34 @@ private Context mCtx;
 	}
 
 	
+	private void TimerMethod()
+	{
+		//This method is called directly by the timer
+		//and runs in the same thread as the timer.
+
+		/*Change the value of a shared variable to a new string fetched from the server.
+		 * If it is different from the previous values, then update the box*/
+		
+		
+		
+		//We call the method that will work with the UI
+		//through the runOnUiThread method.
+		this.runOnUiThread(Timer_Tick);
+	}
+	private Runnable Timer_Tick = new Runnable() {
+		public void run() {
+			new LongOperation().execute("1");
+		//This method runs in the same thread as the UI.    	       
+		
+		//Do something to the UI thread here
+	
+		}
+	};
+	
+	
+	
+	
+	
 	private class AndroidServer extends NanoHTTPD {
 		public AndroidServer() {
 			super(8080);
@@ -134,15 +173,23 @@ private Context mCtx;
 			String sentence = "john do leg_lifts";		// Change it to dynamically getting from the text box
 			String spact = "propose(dr,john,[e1,exercise_type,leg_lifts])";	 // Change it to get dynamically
 			String url= "";
-			sentence = txtThings.getText().toString();   // Get the sentence selected by the user. 
-			try {
+			
+			if("1".equals(params[0])){
+				/* Its refresh request */
+				serverURL = "http://209.129.244.24:5000/diga_refresh";
+				url = serverURL;
+				
+			} else {
+				sentence = txtThings.getText().toString();   // Get the sentence selected by the user.
 				url = createGetURL(serverURL, sentence, spact);
+			}
+			
+			
+			 
+			try {
 				//returned = test
 					//	.getInternetData("http://209.129.244.24:5000/diga_sys?sentence=john%20do%20leg_lifts&spact=propose(dr,john,[e1,exercise_type,leg_lifts])");
-
-				
 				returned = test.getInternetData(url);
-
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
