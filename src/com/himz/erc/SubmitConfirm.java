@@ -190,7 +190,9 @@ private Context mCtx;
 		    String text = "";
 		    String sentence = "";
 		    String speaker = "";
-		    if(s == null)
+		    String returnText= "";
+		    String temp = "";
+		    if(s == null || s.equals(""))
 		    	return null;
 		    BufferedReader bufReader = new BufferedReader(new StringReader(s));
 		    String line=null;
@@ -199,11 +201,13 @@ private Context mCtx;
 				{
 					if(line.startsWith("<div class=\"sentence\">")){
 				    	// Get the spact out of the html
-				         text = text +  line.substring(22, line.length() - 6) + "\n";
+				         temp = line.substring(22, line.length() - 6) + "\n";
 				         continue; 
 				    } else if(line.startsWith("<div class=\"spact\">")){
 				    	// Get the spact out of the html
-				    	 text = getSpeaker(line) + " -> " + text ;
+				    	 temp = getSpeaker(line) + " -> " + temp ;
+				    	 text = text + temp;
+				    	 temp = "";
 				         continue;
 				    }
 				}
