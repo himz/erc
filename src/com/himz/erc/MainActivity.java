@@ -4,6 +4,7 @@ package com.himz.erc;
 import java.util.List;
 import java.util.Map;
 
+import com.himz.erc.util.ErcUtility;
 import com.himz.erc.util.NanoHTTPD;
 import com.himz.erc.util.ServerRunner;
 import com.himz.erc.util.NanoHTTPD.Method;
@@ -15,6 +16,7 @@ import com.himz.erc.util.NanoHTTPD.Response;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -57,6 +59,8 @@ OnItemSelectedListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);	
+		
+		setTitle(getString(R.string.app_name) + "    "+"Hi" +  " " + ErcUtility.speaker);
 		// Spinner element
         spinner = (Spinner) findViewById(R.id.spinner);
 
@@ -231,6 +235,7 @@ OnItemSelectedListener{
         
 	}
 
+	
 	
 	/**
      * Function to load the spinner data from SQLite database

@@ -47,28 +47,31 @@ public final class R {
         public static final int spinner2=0x7f090007;
         public static final int spinner3=0x7f090009;
         public static final int spinner4=0x7f090011;
-        public static final int textView1=0x7f090016;
-        public static final int textView2=0x7f090012;
-        public static final int textView3=0x7f090015;
+        public static final int textView1=0x7f090012;
+        public static final int textView2=0x7f090013;
+        public static final int textView3=0x7f090016;
         public static final int textView4=0x7f090017;
-        public static final int textView5=0x7f090013;
+        public static final int textView5=0x7f090014;
         public static final int tvhttp=0x7f09000a;
         public static final int tvhttp1=0x7f090018;
-        public static final int txtSubmission=0x7f090014;
+        public static final int txtSubmission=0x7f090015;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
-        public static final int activity_submit_confirm=0x7f030001;
+        public static final int activity_speaker=0x7f030001;
+        public static final int activity_submit_confirm=0x7f030002;
     }
     public static final class menu {
         public static final int main=0x7f080000;
-        public static final int submit_confirm=0x7f080001;
+        public static final int speaker=0x7f080001;
+        public static final int submit_confirm=0x7f080002;
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
         public static final int app_name=0x7f050000;
         public static final int hello_world=0x7f050002;
         public static final int spinner_title=0x7f050003;
+        public static final int title_activity_speaker=0x7f050005;
         public static final int title_activity_submit_confirm=0x7f050004;
     }
     public static final class style {
@@ -98,5 +101,6 @@ public final class R {
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f070001;
+        public static final int LoginFormContainer=0x7f070002;
     }
 }

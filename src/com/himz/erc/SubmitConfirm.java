@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.himz.erc.util.ErcUtility;
 import com.himz.erc.util.NanoHTTPD;
 import com.himz.erc.util.ServerRunner;
 import com.himz.erc.util.NanoHTTPD.Method;
@@ -29,13 +30,16 @@ TextView textView1;
 TextView  txtThings;
 private Context mCtx;
 private Timer myTimer;
+String globalSpact;
 
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_submit_confirm);
+		setTitle(getString(R.string.app_name) + "    "+"Hi" +  " " + ErcUtility.speaker);
 		myTimer = new Timer();
+		/* Change the refresh frequency of the timer. */
 		myTimer.schedule(new TimerTask() {			
 			@Override
 			public void run() {
@@ -73,6 +77,8 @@ private Timer myTimer;
 			textView1.setText("accept(john, dr, [e1, exercise_type,leg_lifts])");
 		}		
 		
+		/* Store the spact value here in globalSpact */
+		globalSpact = textView1.getText().toString();
 		/* Stop the server code for the demo*/
 	    httpStuff = (TextView) findViewById(R.id.tvhttp1);
 	    new LongOperation().execute("");
@@ -96,14 +102,17 @@ private Timer myTimer;
 		return true;
 	}
 
+/* Take care of the refresh timer function */
 	
 	private void TimerMethod()
 	{
 		//This method is called directly by the timer
 		//and runs in the same thread as the timer.
 
-		/*Change the value of a shared variable to a new string fetched from the server.
-		 * If it is different from the previous values, then update the box*/
+		/*
+		 * Change the value of a shared variable to a new string fetched from the server.
+		 * If it is different from the previous values, then update the box
+		 * */
 		
 		
 		
@@ -113,10 +122,11 @@ private Timer myTimer;
 	}
 	private Runnable Timer_Tick = new Runnable() {
 		public void run() {
-			new LongOperation().execute("1");
+			
 		//This method runs in the same thread as the UI.    	       
 		
 		//Do something to the UI thread here
+			new LongOperation().execute("1");
 	
 		}
 	};
@@ -170,7 +180,7 @@ private Timer myTimer;
 			GetMethodEx test = new GetMethodEx();
 			String returned = null;
 			String serverURL = "http://209.129.244.24:5000/diga_sys";
-			String sentence = "john do leg_lifts";		// Change it to dynamically getting from the text box
+			String sentence = "";		// Change it to dynamically getting from the text box
 			String spact = "propose(dr,john,[e1,exercise_type,leg_lifts])";	 // Change it to get dynamically
 			String url= "";
 			
@@ -181,7 +191,9 @@ private Timer myTimer;
 				
 			} else {
 				sentence = txtThings.getText().toString();   // Get the sentence selected by the user.
+				spact = getSpact();
 				url = createGetURL(serverURL, sentence, spact);
+				
 			}
 			
 			
@@ -210,6 +222,10 @@ private Timer myTimer;
 			
 			url = String.format(serverURL + "?sentence=%s&spact=%s", Uri.encode(sentence), Uri.encode(spact));
 			return url;
+		}
+		
+		private String getSpact(){
+			return globalSpact;
 		}
 		
 		/**
