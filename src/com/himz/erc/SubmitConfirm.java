@@ -27,7 +27,7 @@ public class SubmitConfirm extends Activity {
 
 TextView httpStuff;
 TextView textView1;
-TextView  txtThings;
+String  globalSentence;
 private Context mCtx;
 private Timer myTimer;
 String globalSpact;
@@ -53,32 +53,33 @@ String globalSpact;
 		String action = getIntent().getExtras().getString("actions");
 		String adjective = getIntent().getExtras().getString("adjectives");
 		String NP = getIntent().getExtras().getString("NP");
-		txtThings =  (TextView) findViewById(R.id.txtSubmission);
-		txtThings.setText((thing + " " + action + " " + adjective + " " + NP).trim());
-	    textView1 = (TextView) findViewById(R.id.textView1);
+		//globalSentence =  (TextView) findViewById(R.id.txtSubmission);
+		globalSentence = (thing + " " + action + " " + adjective + " " + NP).trim();
+	    
+	    /* Store the spact value here in globalSpact */
 		
-		if("I want to rest".toLowerCase().trim().equals(txtThings.getText().toString().toLowerCase().trim())) {
-			textView1.setText("propose(john,dr,[X,current_state,suspended])");
+		if("I want to rest".toLowerCase().trim().equals(globalSentence.toLowerCase().trim())) {
+			globalSpact ="propose(john,dr,[X,current_state,suspended])";
+			
 		}
-		if("I want to stop".toLowerCase().trim().equals(txtThings.getText().toString().toLowerCase().trim())) {
-			textView1.setText("propose(john,dr,[X,current_state,terminated])");
+		if("I want to stop".toLowerCase().trim().equals(globalSentence.toLowerCase().trim())) {
+			globalSpact ="propose(john,dr,[X,current_state,terminated])";
 		}
 		
-		if("my leg hurts".toLowerCase().trim().equals(txtThings.getText().toString().toLowerCase().trim())) {
-			textView1.setText("inform(john,dr, [leg,state,pain])");
+		if("my leg hurts".toLowerCase().trim().equals(globalSentence.toLowerCase().trim())) {
+			globalSpact ="inform(john,dr, [leg,state,pain])";
 		}		
 		
-		if("john do leg_lifts".toLowerCase().trim().equals(txtThings.getText().toString().toLowerCase().trim())) {
-			textView1.setText("propose(dr, john, [e1, exercise_type,leg_lifts])");
+		if("john do leg_lifts".toLowerCase().trim().equals(globalSentence.toLowerCase().trim())) {
+			globalSpact ="propose(dr, john, [e1, exercise_type,leg_lifts])";
 		}		
 		
 		
-		if("I will do it".toLowerCase().trim().equals(txtThings.getText().toString().toLowerCase().trim())) {
-			textView1.setText("accept(john, dr, [e1, exercise_type,leg_lifts])");
+		if("I will do it".toLowerCase().trim().equals(globalSentence.toLowerCase().trim())) {
+			globalSpact ="accept(john, dr, [e1, exercise_type,leg_lifts])";
 		}		
 		
-		/* Store the spact value here in globalSpact */
-		globalSpact = textView1.getText().toString();
+		
 		/* Stop the server code for the demo*/
 	    httpStuff = (TextView) findViewById(R.id.tvhttp1);
 	    new LongOperation().execute("");
@@ -190,7 +191,7 @@ String globalSpact;
 				url = serverURL;
 				
 			} else {
-				sentence = txtThings.getText().toString();   // Get the sentence selected by the user.
+				sentence = globalSentence;   // Get the sentence selected by the user.
 				spact = getSpact();
 				url = createGetURL(serverURL, sentence, spact);
 				
