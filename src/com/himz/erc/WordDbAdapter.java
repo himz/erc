@@ -92,6 +92,9 @@ public class WordDbAdapter {
 			createStateRow(db, "I",1, 2, 2, 1);
 			createStateRow(db, "am",2, 3, 2, 1);
 			createStateRow(db, "will",2, 11, 2, 1);
+			createStateRow(db, "don't",2, 14, 2, 1);
+			createStateRow(db, "want",2, 19, 2, 1);
+			
 			createStateRow(db, "fine",3, 4, 2, 1);
 			createStateRow(db, "tired",3, 5, 2, 1);
 			createStateRow(db, "cold",3, 6, 2, 1);
@@ -100,8 +103,14 @@ public class WordDbAdapter {
 			createStateRow(db, "upset",3, 9, 2, 1);
 			createStateRow(db, "worried",3, 10, 2,1);
 			createStateRow(db, "do",11, 12, 2, 1);
-			createStateRow(db, "it",12, 13, 2, 1);
-
+			createStateRow(db, "leg_lifts",12, 13, 2, 1);
+			createStateRow(db, "want",14, 15, 2, 1);
+			createStateRow(db, "to",15, 16, 2, 1);
+			createStateRow(db, "lie",16, 17, 2, 1);
+			createStateRow(db, "down",17, 18, 2, 1);
+			createStateRow(db, "to",19, 20, 2, 1);
+			createStateRow(db, "do",20, 21, 2, 1);
+			createStateRow(db, "leg_lifts",21, 22, 2, 1);
 			
 			
 			createStateRow(db, "my",1, 2, 2, 2);
@@ -114,7 +123,16 @@ public class WordDbAdapter {
 			
 			createStateRow(db, "john",1, 2, 2, 3);
 			createStateRow(db, "do",2, 3, 2, 3);
+			createStateRow(db, "lie",2, 5, 2, 3);
 			createStateRow(db, "leg_lifts",3, 4, 2, 3);
+			createStateRow(db, "down",5, 6, 2, 3);
+			
+			createStateRow(db, "OK",1, 2, 2, 4);
+			createStateRow(db, "do",2, 3, 2, 4);
+			createStateRow(db, "leg_lifts",3, 4, 2, 4);
+			
+
+			
 			
 		}
 		
@@ -244,7 +262,7 @@ public class WordDbAdapter {
 	public int fetchNextStateValue(int state1, int group, String str)
 	{
 		Cursor c = null;
-
+		int returnValue = 0;
 		try
 		{
 				c = mDb.rawQuery("select state2 from State where state1=" + "\""+state1+"\"" + "and grp=" + "\""+group+"\"" + "and label=" + "\""+str+"\"" , null);				
@@ -256,8 +274,10 @@ public class WordDbAdapter {
 		
 			
 		c.moveToFirst();
+		if(c.getCount() != 0)
+			returnValue = Integer.parseInt(c.getString(0)) ;
 		
-		return Integer.parseInt(c.getString(0)) ;
+		return returnValue ;
 		
 	}
 	
@@ -265,6 +285,7 @@ public class WordDbAdapter {
 	public int fetchCurrentStateValue(int group, String str)
 	{
 		Cursor c = null;
+		int returnValue = 0;
 
 		try
 		{
@@ -273,11 +294,10 @@ public class WordDbAdapter {
 		{
 			e.printStackTrace();
 		}
-		 
-		
-			
+	
 		c.moveToFirst();
-		int returnValue = Integer.parseInt(c.getString(0)) ;
+		if(c.getCount() != 0)
+			returnValue = Integer.parseInt(c.getString(0)) ;
 		c.close();
 		return returnValue;
 		

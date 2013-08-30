@@ -53,8 +53,10 @@ String globalSpact;
 		String action = getIntent().getExtras().getString("actions");
 		String adjective = getIntent().getExtras().getString("adjectives");
 		String NP = getIntent().getExtras().getString("NP");
+		String NP2 = getIntent().getExtras().getString("NP2");
+		String NP3 = getIntent().getExtras().getString("NP3");
 		//globalSentence =  (TextView) findViewById(R.id.txtSubmission);
-		globalSentence = (thing + " " + action + " " + adjective + " " + NP).trim();
+		globalSentence = (thing + " " + action + " " + adjective + " " + NP+ " " + NP2+ " " + NP3).trim();
 	    
 	    /* Store the spact value here in globalSpact */
 		
@@ -79,7 +81,20 @@ String globalSpact;
 			globalSpact ="accept(john, dr, [e1, exercise_type,leg_lifts])";
 		}		
 		
+		if("john lie down".toLowerCase().trim().equals(globalSentence.toLowerCase().trim())) {
+			globalSpact ="propose(dr,john, [[e_ld,type,lying_down],[e_ld,agent,john]])";
+		}	
 		
+		if("I don't want to lie down".toLowerCase().trim().equals(globalSentence.toLowerCase().trim())) {
+			globalSpact ="reject(john,dr,[[e_ld,type,lying_down],[e_ld,agent,john]])";
+		}	
+		
+		if("I want to do leg_lifts".toLowerCase().trim().equals(globalSentence.toLowerCase().trim())) {
+			globalSpact ="propose(john,dr, [[e_ll,exercise_type,leg_lifting],[e_lll,agent,john]])";
+		}	
+		if("OK do leg_lifts".toLowerCase().trim().equals(globalSentence.toLowerCase().trim())) {
+			globalSpact ="accept(dr,john, [[e_ll,exercise_type,leg_lifting],[e_lll,agent,john]])";
+		}			
 		/* Stop the server code for the demo*/
 	    httpStuff = (TextView) findViewById(R.id.tvhttp1);
 	    new LongOperation().execute("");

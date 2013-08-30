@@ -44,10 +44,13 @@ OnItemSelectedListener{
 	int flagTxtAdjectiveActive = 0;
 	Spinner  spnSelect3 ;
 	Spinner  spnSelect4 ;      
+	Spinner  spnSelect5 ;
+	Spinner  spnSelect6 ;  
 	TextView txtCurrentSelected;
 	EditText editText1;
     // Add button
     Button btnAdd;
+    String chat;
  
     // Input text
     EditText inputLabel;
@@ -70,8 +73,10 @@ OnItemSelectedListener{
 		spnSelect2 =  (Spinner) findViewById(R.id.spinner2);
 		spnSelect3 =  (Spinner) findViewById(R.id.spinner3);
 		spnSelect4 =  (Spinner) findViewById(R.id.spinner4);
+		spnSelect5 =  (Spinner) findViewById(R.id.spinner5);
+		spnSelect6 =  (Spinner) findViewById(R.id.spinner6);
 		editText1 =  (EditText) findViewById(R.id.editText1);	 
-		
+		chat = new String();
 		
 		spnSelect2.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
@@ -94,10 +99,14 @@ OnItemSelectedListener{
 					int arg2, long arg3) {
 				int currentState = db.fetchCurrentStateValue(group, spnSelect3.getSelectedItem().toString());
 				int test = db.fetchNextStateValue(currentState, group, spnSelect3.getSelectedItem().toString() );
+				chat = spnSelect1.getSelectedItem().toString()  + " " + spnSelect2.getSelectedItem().toString() + " " +  spnSelect3.getSelectedItem().toString();
 				if(loadSpinnerData(test, group, spnSelect4) == 0){
-					editText1.setText(spnSelect1.getSelectedItem().toString()  + " " + spnSelect2.getSelectedItem().toString() + " " +  spnSelect3.getSelectedItem().toString());
+//					editText1.setText(spnSelect1.getSelectedItem().toString()  + " " + spnSelect2.getSelectedItem().toString() + " " +  spnSelect3.getSelectedItem().toString());
 					
+					editText1.setText(chat);
 					spnSelect4.setVisibility(4);
+					spnSelect5.setVisibility(4);
+					spnSelect6.setVisibility(4);
 				} else {
 					spnSelect4.setVisibility(0);
 				}
@@ -121,8 +130,17 @@ OnItemSelectedListener{
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				editText1.setText(spnSelect1.getSelectedItem().toString()  + " " + spnSelect2.getSelectedItem().toString() + " " +  spnSelect3.getSelectedItem().toString() + " " +  spnSelect4.getSelectedItem().toString());
-					
+				int currentState = db.fetchCurrentStateValue(group, spnSelect4.getSelectedItem().toString());
+				int test = db.fetchNextStateValue(currentState, group, spnSelect4.getSelectedItem().toString() );
+				chat = chat + " " + spnSelect4.getSelectedItem().toString();
+				if(loadSpinnerData(test, group, spnSelect5) == 0){
+//					editText1.setText(spnSelect1.getSelectedItem().toString()  + " " + spnSelect2.getSelectedItem().toString() + " " +  spnSelect3.getSelectedItem().toString() + " " +  spnSelect4.getSelectedItem().toString());					
+					editText1.setText(chat);
+					spnSelect5.setVisibility(4);
+					spnSelect6.setVisibility(4);
+				} else {
+					spnSelect5.setVisibility(0);
+				}	
 			}
 
 			@Override
@@ -131,7 +149,44 @@ OnItemSelectedListener{
 				
 			}
 			});
+		spnSelect5.setOnItemSelectedListener(new OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				int currentState = db.fetchCurrentStateValue(group, spnSelect5.getSelectedItem().toString());
+				int test = db.fetchNextStateValue(currentState, group, spnSelect5.getSelectedItem().toString() );
+				chat = chat + " " + spnSelect5.getSelectedItem().toString();
+				if(loadSpinnerData(test, group, spnSelect6) == 0){
+//					editText1.setText(spnSelect1.getSelectedItem().toString()  + " " + spnSelect2.getSelectedItem().toString() + " " +  spnSelect3.getSelectedItem().toString() + " " +  spnSelect4.getSelectedItem().toString()+ " " +  spnSelect5.getSelectedItem().toString());
+				
+					editText1.setText(chat);
+					spnSelect6.setVisibility(4);
+				} else {
+					spnSelect6.setVisibility(0);
+				}	
+			}
 
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+				
+			}
+			});
+		spnSelect6.setOnItemSelectedListener(new OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				chat = chat + " " + spnSelect6.getSelectedItem().toString();
+				editText1.setText(chat);
+				//editText1.setText(spnSelect1.getSelectedItem().toString()  + " " + spnSelect2.getSelectedItem().toString() + " " +  spnSelect3.getSelectedItem().toString() + " " +  spnSelect4.getSelectedItem().toString()+ " " +  spnSelect5.getSelectedItem().toString() + " " +  spnSelect6.getSelectedItem().toString());
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+				
+			}
+			});
 		spnSelect1.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
@@ -219,14 +274,20 @@ OnItemSelectedListener{
 				i.putExtra("actions", txtActions.getSelectedItem().toString());
 				i.putExtra("adjectives", txtAdjectives.getSelectedItem().toString());
 				try{
-					i.putExtra("NP", spnSelect4.getSelectedItem().toString());
-					
-	
+					i.putExtra("NP2", spnSelect5.getSelectedItem().toString());
 				} catch (Exception e){
 					i.putExtra("NP", "");
-					
 				}
-				
+				try{
+					i.putExtra("NP2", spnSelect5.getSelectedItem().toString());	
+				} catch (Exception e){
+					i.putExtra("NP2", "");					
+				}
+				try{
+					i.putExtra("NP3", spnSelect6.getSelectedItem().toString());	
+				} catch (Exception e){
+					i.putExtra("NP3", "");					
+				}
 				startActivity(i);
 
 
