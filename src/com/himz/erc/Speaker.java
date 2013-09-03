@@ -16,6 +16,7 @@ import com.himz.erc.util.ErcUtility;
 public class Speaker extends Activity {
 
 	private Button btnSubmit;
+	private EditText editText1;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -30,8 +31,11 @@ public class Speaker extends Activity {
 			startActivity(i);
 		}
 		
+		editText1 = (EditText)findViewById(R.id.editText1);
 		btnSubmit =  (Button) findViewById(R.id.button1);
-		
+		editText1.setFocusable(true);
+		editText1.setFocusableInTouchMode(true);   
+		editText1.requestFocus();
 		
 		btnSubmit.setOnClickListener(new View.OnClickListener() {
 
@@ -44,8 +48,8 @@ public class Speaker extends Activity {
 				
 				
 				
-				Intent i = new Intent( Speaker.this , MainActivity.class);
-				
+				Intent i = new Intent( Speaker.this , SubmitConfirm.class);
+				i.putExtra("switch", "1");
 				i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				//i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 				startActivity(i);

@@ -18,7 +18,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +35,8 @@ String  globalSentence;
 private Context mCtx;
 private Timer myTimer;
 String globalSpact;
+
+Button btnChat;
 
 	
 	@Override
@@ -47,8 +53,26 @@ String globalSpact;
 			}
 			
 		}, 0, 2000);
+	    httpStuff = (TextView) findViewById(R.id.tvhttp1);	
+		btnChat = (Button) findViewById(R.id.button1);
+		btnChat.setOnClickListener(new View.OnClickListener() {
+
+			private Context context = getApplicationContext();
+
+			public void onClick(View v) {
+				Intent i = new Intent(SubmitConfirm.this , MainActivity.class);
+				startActivity(i);
+//				finish();
+			}
+		});  
+	    
+	    
+		if( "1".equals(getIntent().getExtras().getString("1")))
+			return;
 		
 		
+		// Add parameters for global values
+	
 		String thing = getIntent().getExtras().getString("things");
 		String action = getIntent().getExtras().getString("actions");
 		String adjective = getIntent().getExtras().getString("adjectives");
@@ -73,12 +97,12 @@ String globalSpact;
 		}		
 		
 		if("john do leg_lifts".toLowerCase().trim().equals(globalSentence.toLowerCase().trim())) {
-			globalSpact ="propose(dr, john, [e1, exercise_type,leg_lifts])";
+			globalSpact ="propose(dr,john,[[e1,exercise_type,leg_lifting],[e1,agent,john]])";
 		}		
 		
 		
-		if("I will do it".toLowerCase().trim().equals(globalSentence.toLowerCase().trim())) {
-			globalSpact ="accept(john, dr, [e1, exercise_type,leg_lifts])";
+		if("I will do leg_lifts".toLowerCase().trim().equals(globalSentence.toLowerCase().trim())) {
+			globalSpact ="accept(john, dr, [[e1,exercise_type,leg_lifting],[e1,agent,john]])";
 		}		
 		
 		if("john lie down".toLowerCase().trim().equals(globalSentence.toLowerCase().trim())) {
@@ -90,13 +114,13 @@ String globalSpact;
 		}	
 		
 		if("I want to do leg_lifts".toLowerCase().trim().equals(globalSentence.toLowerCase().trim())) {
-			globalSpact ="propose(john,dr, [[e_ll,exercise_type,leg_lifting],[e_lll,agent,john]])";
+			globalSpact ="propose(john,dr, [[e_ll,exercise_type,leg_lifting],[e_ll,agent,john]])";
 		}	
 		if("OK do leg_lifts".toLowerCase().trim().equals(globalSentence.toLowerCase().trim())) {
-			globalSpact ="accept(dr,john, [[e_ll,exercise_type,leg_lifting],[e_lll,agent,john]])";
+			globalSpact ="accept(dr,john, [[e_ll,exercise_type,leg_lifting],[e_ll,agent,john]])";
 		}			
 		/* Stop the server code for the demo*/
-	    httpStuff = (TextView) findViewById(R.id.tvhttp1);
+
 	    new LongOperation().execute("");
 	   // Toast.makeText(SubmitConfirm.this, "Starting Server ....", Toast.LENGTH_SHORT).show();
 	    
@@ -104,9 +128,9 @@ String globalSpact;
 	   // AndroidServer server = new AndroidServer() ;
 	    //server.start();
   
-	  
+	    
 
-	   
+  
 		
 	}
 	

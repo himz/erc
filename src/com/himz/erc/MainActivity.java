@@ -274,7 +274,7 @@ OnItemSelectedListener{
 				i.putExtra("actions", txtActions.getSelectedItem().toString());
 				i.putExtra("adjectives", txtAdjectives.getSelectedItem().toString());
 				try{
-					i.putExtra("NP2", spnSelect5.getSelectedItem().toString());
+					i.putExtra("NP", spnSelect4.getSelectedItem().toString());
 				} catch (Exception e){
 					i.putExtra("NP", "");
 				}
@@ -288,6 +288,23 @@ OnItemSelectedListener{
 				} catch (Exception e){
 					i.putExtra("NP3", "");					
 				}
+				startActivity(i);
+
+
+			}
+		}); 
+		
+		
+		Button btnSwitch =  (Button) findViewById(R.id.Button01);
+		btnSwitch.setOnClickListener(new View.OnClickListener() {
+
+			private Context context = getApplicationContext();
+
+			public void onClick(View v) {
+				
+				Intent i = new Intent( MainActivity.this , SubmitConfirm.class);
+				i.putExtra("switch", "1");
+				
 				startActivity(i);
 
 
