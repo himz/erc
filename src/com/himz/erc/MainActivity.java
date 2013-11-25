@@ -82,9 +82,14 @@ OnItemSelectedListener{
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				int currentState = db.fetchCurrentStateValue(group, spnSelect2.getSelectedItem().toString());
+				int currentState = (Integer)spnSelect2.getTag();
+				//int currentState = db.fetchCurrentStateValue(group, spnSelect2.getSelectedItem().toString());
 				int test = db.fetchNextStateValue(currentState, group, spnSelect2.getSelectedItem().toString() );
 				loadSpinnerData(test, group, spnSelect3);
+				/* Store the next state in the next spinner -- 
+				 * which would be its current state 
+				 */
+				spnSelect3.setTag(test);
 			}
 
 			@Override
@@ -97,7 +102,8 @@ OnItemSelectedListener{
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				int currentState = db.fetchCurrentStateValue(group, spnSelect3.getSelectedItem().toString());
+				int currentState = (Integer)spnSelect3.getTag(); 
+						//db.fetchCurrentStateValue(group, spnSelect3.getSelectedItem().toString());
 				int test = db.fetchNextStateValue(currentState, group, spnSelect3.getSelectedItem().toString() );
 				chat = spnSelect1.getSelectedItem().toString()  + " " + spnSelect2.getSelectedItem().toString() + " " +  spnSelect3.getSelectedItem().toString();
 				if(loadSpinnerData(test, group, spnSelect4) == 0){
@@ -107,8 +113,13 @@ OnItemSelectedListener{
 					spnSelect4.setVisibility(4);
 					spnSelect5.setVisibility(4);
 					spnSelect6.setVisibility(4);
+				
 				} else {
 					spnSelect4.setVisibility(0);
+					/* Store the next state in the next spinner -- 
+					 * which would be its current state 
+					 */
+					spnSelect4.setTag(test);
 				}
 				
 			}
@@ -130,7 +141,11 @@ OnItemSelectedListener{
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				int currentState = db.fetchCurrentStateValue(group, spnSelect4.getSelectedItem().toString());
+				int currentState =0;
+				if(spnSelect4.getVisibility()==View.VISIBLE)
+					currentState = (Integer)spnSelect4.getTag();
+				else
+					currentState = db.fetchCurrentStateValue(group, spnSelect4.getSelectedItem().toString());
 				int test = db.fetchNextStateValue(currentState, group, spnSelect4.getSelectedItem().toString() );
 				chat = chat + " " + spnSelect4.getSelectedItem().toString();
 				if(loadSpinnerData(test, group, spnSelect5) == 0){
@@ -138,8 +153,13 @@ OnItemSelectedListener{
 					editText1.setText(chat);
 					spnSelect5.setVisibility(4);
 					spnSelect6.setVisibility(4);
+					
 				} else {
 					spnSelect5.setVisibility(0);
+					/* Store the next state in the next spinner -- 
+					 * which would be its current state 
+					 */
+					spnSelect5.setTag(test);
 				}	
 			}
 
@@ -153,7 +173,11 @@ OnItemSelectedListener{
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				int currentState = db.fetchCurrentStateValue(group, spnSelect5.getSelectedItem().toString());
+				int currentState =0;
+				if(spnSelect5.getVisibility()==View.VISIBLE)
+					currentState = (Integer)spnSelect5.getTag();
+				else
+					currentState = db.fetchCurrentStateValue(group, spnSelect5.getSelectedItem().toString());
 				int test = db.fetchNextStateValue(currentState, group, spnSelect5.getSelectedItem().toString() );
 				chat = chat + " " + spnSelect5.getSelectedItem().toString();
 				if(loadSpinnerData(test, group, spnSelect6) == 0){
@@ -161,8 +185,13 @@ OnItemSelectedListener{
 				
 					editText1.setText(chat);
 					spnSelect6.setVisibility(4);
+				
 				} else {
 					spnSelect6.setVisibility(0);
+					/* Store the next state in the next spinner -- 
+					 * which would be its current state 
+					 */
+					spnSelect6.setTag(test);
 				}	
 			}
 
@@ -200,6 +229,10 @@ OnItemSelectedListener{
 				loadSpinnerData(test, group, spnSelect2);
 				//txtCurrentSelected.setText(txtCurrentSelected.getText() + txtThings.getSelectedItem().toString());
 				spnSelect2.setEnabled(true);
+				/* Store the next state in the next spinner -- 
+				 * which would be its current state 
+				 */
+				spnSelect2.setTag(test);
 			}
 
 			@Override
@@ -214,37 +247,7 @@ OnItemSelectedListener{
         db = new WordDbAdapter(this);
         db.open();
 		
-		if(flag)
-		{
-			// label, state1, state2, textType, groupNumber
-		/*	db.createStateRow("I",1, 2, 2, 1);
-			db.createStateRow("am",2, 3, 2, 1);
-			db.createStateRow("will",2, 11, 2, 1);
-			
-			db.createStateRow("fine",3, 4, 2, 1);
-			db.createStateRow("tired",3, 5, 2, 1);
-			db.createStateRow("cold",3, 6, 2, 1);
-			db.createStateRow("hot",3, 7, 2, 1);
-			db.createStateRow("happy",3, 8, 2, 1);
-			db.createStateRow("upset",3, 9, 2, 1);
-			db.createStateRow("worried",3, 10, 2,1);
-			db.createStateRow("do",11, 12, 2, 1);
-			db.createStateRow("it",12, 13, 2, 1);
-			
-			db.createStateRow("my",1, 2, 2, 2);
-			db.createStateRow("knee",2, 3, 2, 2);
-			db.createStateRow("leg",2, 3, 2, 2);
-			db.createStateRow("arm",2, 3, 2, 2);
-			db.createStateRow("hurts",3, 6, 2, 2);	
-
-			db.createStateRow("john",1, 2, 2, 3);
-		    db.createStateRow("do",2, 3, 2, 3);
-		    db.createStateRow("leg_lifts",3, 4, 2, 3); */
-		    
-		    
-		    
-			flag = false;
-	}
+	
 
 
 		// Loading spinner data from database
@@ -288,6 +291,7 @@ OnItemSelectedListener{
 				} catch (Exception e){
 					i.putExtra("NP3", "");					
 				}
+				i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 				startActivity(i);
 
 
@@ -304,7 +308,7 @@ OnItemSelectedListener{
 				
 				Intent i = new Intent( MainActivity.this , SubmitConfirm.class);
 				i.putExtra("switch", "1");
-				
+				i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 				startActivity(i);
 
 
@@ -351,8 +355,9 @@ OnItemSelectedListener{
         
         
         // Showing selected spinner item
-        Toast.makeText(parent.getContext(), "You selected: " + label,
-                Toast.LENGTH_LONG).show();
+        
+        /*Toast.makeText(parent.getContext(), "You selected: " + label,
+                Toast.LENGTH_LONG).show();*/
  
     }
  
