@@ -151,6 +151,10 @@ Button btnChat;
 		if("OK do leg_lifts".toLowerCase().trim().equals(globalSentence.toLowerCase().trim())) {
 			globalSpact ="accept(dr,john, [[e_ll,exercise_type,leg_lifting],[e_ll,agent,john]])";
 		}
+		if("I want to rest".toLowerCase().trim().equals(globalSentence.toLowerCase().trim())) {
+			globalSpact ="propose(john, dr, [[e_rest, activity_type, resting],[e_rest, agent, john]] )";
+		}	
+		
 		
 		return globalSpact;
 	}
