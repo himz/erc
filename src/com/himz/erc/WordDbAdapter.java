@@ -104,11 +104,15 @@ public class WordDbAdapter {
 			createStateRow(db, "worried",3, 10, 2,1);
 			createStateRow(db, "do",11, 12, 2, 1);
 			createStateRow(db, "leg_lifts",12, 13, 2, 1);
+			
 			createStateRow(db, "want",14, 15, 2, 1);
 			createStateRow(db, "to",15, 16, 2, 1);
+			
 			createStateRow(db, "lie",16, 17, 2, 1);
 			createStateRow(db, "down",17, 18, 2, 1);
+			
 			createStateRow(db, "to",19, 20, 2, 1);
+			createStateRow(db, "rest",20, 23, 2, 1);
 			createStateRow(db, "do",20, 21, 2, 1);
 			createStateRow(db, "leg_lifts",21, 22, 2, 1);
 			

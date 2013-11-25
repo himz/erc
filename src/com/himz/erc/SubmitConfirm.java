@@ -61,12 +61,27 @@ Button btnChat;
 
 			public void onClick(View v) {
 				Intent i = new Intent(SubmitConfirm.this , MainActivity.class);
+				i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 				startActivity(i);
 //				finish();
 			}
 		});  
-	    
-	    
+  
+		
+	}
+
+	@Override
+	protected void onNewIntent(Intent intent) {
+	    super.onNewIntent(intent);
+	    //Refresh the intent
+	    setIntent(intent);
+	}
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		
 		if( "1".equals(getIntent().getExtras().getString("1")))
 			return;
 		
@@ -84,6 +99,23 @@ Button btnChat;
 	    
 	    /* Store the spact value here in globalSpact */
 		
+		globalSpact = getGlobalSpact(globalSentence);
+		
+					
+		/* Stop the server code for the demo*/
+
+	    new LongOperation().execute("");
+  
+	    
+
+		
+		
+	}
+
+
+	public String getGlobalSpact(String globalSentence){
+		
+		String globalSpact= "";
 		if("I want to rest".toLowerCase().trim().equals(globalSentence.toLowerCase().trim())) {
 			globalSpact ="propose(john,dr,[X,current_state,suspended])";
 			
@@ -118,20 +150,9 @@ Button btnChat;
 		}	
 		if("OK do leg_lifts".toLowerCase().trim().equals(globalSentence.toLowerCase().trim())) {
 			globalSpact ="accept(dr,john, [[e_ll,exercise_type,leg_lifting],[e_ll,agent,john]])";
-		}			
-		/* Stop the server code for the demo*/
-
-	    new LongOperation().execute("");
-	   // Toast.makeText(SubmitConfirm.this, "Starting Server ....", Toast.LENGTH_SHORT).show();
-	    
-	    
-	   // AndroidServer server = new AndroidServer() ;
-	    //server.start();
-  
-	    
-
-  
+		}
 		
+		return globalSpact;
 	}
 	
 

@@ -36,6 +36,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@+id/textView2"
-        android:text="Chat" />
+        android:text="Switch" />
 
 </RelativeLayout>

@@ -36,6 +36,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 public class MainActivity extends Activity implements
 OnItemSelectedListener{
 	public static WordDbAdapter db;
+	public final String BLANK_SPACE = " ";
     // Spinner element
     Spinner spinner;
     Spinner  spnSelect1 ;
@@ -109,10 +110,12 @@ OnItemSelectedListener{
 				if(loadSpinnerData(test, group, spnSelect4) == 0){
 //					editText1.setText(spnSelect1.getSelectedItem().toString()  + " " + spnSelect2.getSelectedItem().toString() + " " +  spnSelect3.getSelectedItem().toString());
 					
-					editText1.setText(chat);
+					
 					spnSelect4.setVisibility(4);
 					spnSelect5.setVisibility(4);
 					spnSelect6.setVisibility(4);
+					editText1.setText(chat);
+					editText1.setText(getChatText());
 				
 				} else {
 					spnSelect4.setVisibility(0);
@@ -123,10 +126,7 @@ OnItemSelectedListener{
 				}
 				
 			}
-
-			
-			
-			
+		
 			@Override
 			public void onNothingSelected(AdapterView<?> parent) {
 				// TODO Auto-generated method stub
@@ -150,9 +150,11 @@ OnItemSelectedListener{
 				chat = chat + " " + spnSelect4.getSelectedItem().toString();
 				if(loadSpinnerData(test, group, spnSelect5) == 0){
 //					editText1.setText(spnSelect1.getSelectedItem().toString()  + " " + spnSelect2.getSelectedItem().toString() + " " +  spnSelect3.getSelectedItem().toString() + " " +  spnSelect4.getSelectedItem().toString());					
-					editText1.setText(chat);
+				
 					spnSelect5.setVisibility(4);
 					spnSelect6.setVisibility(4);
+					editText1.setText(chat);
+					editText1.setText(getChatText());
 					
 				} else {
 					spnSelect5.setVisibility(0);
@@ -183,8 +185,10 @@ OnItemSelectedListener{
 				if(loadSpinnerData(test, group, spnSelect6) == 0){
 //					editText1.setText(spnSelect1.getSelectedItem().toString()  + " " + spnSelect2.getSelectedItem().toString() + " " +  spnSelect3.getSelectedItem().toString() + " " +  spnSelect4.getSelectedItem().toString()+ " " +  spnSelect5.getSelectedItem().toString());
 				
-					editText1.setText(chat);
+				
 					spnSelect6.setVisibility(4);
+					editText1.setText(chat);
+					editText1.setText(getChatText());
 				
 				} else {
 					spnSelect6.setVisibility(0);
@@ -207,6 +211,7 @@ OnItemSelectedListener{
 					int arg2, long arg3) {
 				chat = chat + " " + spnSelect6.getSelectedItem().toString();
 				editText1.setText(chat);
+				editText1.setText(getChatText());
 				//editText1.setText(spnSelect1.getSelectedItem().toString()  + " " + spnSelect2.getSelectedItem().toString() + " " +  spnSelect3.getSelectedItem().toString() + " " +  spnSelect4.getSelectedItem().toString()+ " " +  spnSelect5.getSelectedItem().toString() + " " +  spnSelect6.getSelectedItem().toString());
 			}
 
@@ -317,6 +322,22 @@ OnItemSelectedListener{
         
 	}
 
+	
+	public String getChatText(){
+		String strChat = null;
+		
+		strChat = spnSelect1.getSelectedItem().toString() + BLANK_SPACE +  spnSelect2.getSelectedItem().toString() +
+				BLANK_SPACE + spnSelect3.getSelectedItem().toString();
+		
+		if(spnSelect4.getVisibility() == View.VISIBLE)
+			strChat = strChat + BLANK_SPACE + spnSelect4.getSelectedItem().toString();
+		if(spnSelect5.getVisibility() == View.VISIBLE)
+			strChat = strChat + BLANK_SPACE + spnSelect5.getSelectedItem().toString();
+		if(spnSelect6.getVisibility() == View.VISIBLE)
+			strChat = strChat + BLANK_SPACE + spnSelect6.getSelectedItem().toString();
+		
+		return strChat;
+	}
 	
 	
 	/**
