@@ -1,0 +1,119 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  Internal Error (javaClasses.cpp:136), pid=5940, tid=3740
+#  fatal error: Invalid layout of preloaded class
+#
+# JRE version:  (7.0_45-b18) (build )
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (24.45-b08 mixed mode windows-amd64 compressed oops)
+# Failed to write core dump. Minidumps are not enabled by default on client versions of Windows
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.sun.com/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x0000000001d8e800):  JavaThread "Unknown thread" [_thread_in_vm, id=3740, stack(0x0000000001d90000,0x0000000001e90000)]
+
+Stack: [0x0000000001d90000,0x0000000001e90000]
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+
+Other Threads:
+
+=>0x0000000001d8e800 (exited) JavaThread "Unknown thread" [_thread_in_vm, id=3740, stack(0x0000000001d90000,0x0000000001e90000)]
+
+VM state:not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+Events (10 events):
+Event: 0.015 loading class 0x0000000001ed6620 done
+Event: 0.015 loading class 0x0000000001ed6040 done
+Event: 0.015 loading class 0x0000000001ed6020
+Event: 0.015 loading class 0x0000000001ede120
+Event: 0.015 loading class 0x0000000001ede120 done
+Event: 0.015 loading class 0x0000000001ede150
+Event: 0.016 loading class 0x0000000001ede150 done
+Event: 0.016 loading class 0x0000000001ede180
+Event: 0.016 loading class 0x0000000001ede180 done
+Event: 0.016 loading class 0x0000000001ed6020 done
+
+
+Dynamic libraries:
+0x00007ff7bf740000 - 0x00007ff7bf773000 	C:\Program Files\Java\jre7\bin\javaw.exe
+0x00007ffeefec0000 - 0x00007ffef0069000 	C:\WINDOWS\SYSTEM32\ntdll.dll
+0x00007ffeee060000 - 0x00007ffeee199000 	C:\WINDOWS\system32\KERNEL32.DLL
+0x00007ffeed310000 - 0x00007ffeed41e000 	C:\WINDOWS\system32\KERNELBASE.dll
+0x00007ffeebe70000 - 0x00007ffeebefb000 	C:\WINDOWS\system32\apphelp.dll
+0x00007ffede910000 - 0x00007ffede95c000 	C:\WINDOWS\AppPatch\AppPatch64\AcGenral.DLL
+0x00007ffeedc00000 - 0x00007ffeedca7000 	C:\WINDOWS\system32\msvcrt.dll
+0x00007ffeed080000 - 0x00007ffeed0ab000 	C:\WINDOWS\SYSTEM32\SspiCli.dll
+0x00007ffeed750000 - 0x00007ffeed7a1000 	C:\WINDOWS\system32\SHLWAPI.dll
+0x00007ffeef5c0000 - 0x00007ffeef731000 	C:\WINDOWS\system32\USER32.dll
+0x00007ffeef860000 - 0x00007ffeef9d6000 	C:\WINDOWS\system32\ole32.dll
+0x00007ffeee1b0000 - 0x00007ffeef5bf000 	C:\WINDOWS\system32\SHELL32.dll
+0x00007ffeec8b0000 - 0x00007ffeec8cf000 	C:\WINDOWS\SYSTEM32\USERENV.dll
+0x00007ffeefb80000 - 0x00007ffeefc25000 	C:\WINDOWS\system32\ADVAPI32.dll
+0x00007ffee28b0000 - 0x00007ffee28cb000 	C:\WINDOWS\SYSTEM32\MPR.dll
+0x00007ffeedac0000 - 0x00007ffeedbf6000 	C:\WINDOWS\system32\RPCRT4.dll
+0x00007ffeed9c0000 - 0x00007ffeeda17000 	C:\WINDOWS\SYSTEM32\sechost.dll
+0x00007ffeefce0000 - 0x00007ffeefeb7000 	C:\WINDOWS\SYSTEM32\combase.dll
+0x00007ffeedf10000 - 0x00007ffeee055000 	C:\WINDOWS\system32\GDI32.dll
+0x00007ffeed240000 - 0x00007ffeed254000 	C:\WINDOWS\SYSTEM32\profapi.dll
+0x00007ffeebb00000 - 0x00007ffeebba1000 	C:\WINDOWS\SYSTEM32\SHCORE.dll
+0x00007ffeef7b0000 - 0x00007ffeef7e4000 	C:\WINDOWS\system32\IMM32.DLL
+0x00007ffeed7b0000 - 0x00007ffeed8e8000 	C:\WINDOWS\system32\MSCTF.dll
+0x00007ffeeb6c0000 - 0x00007ffeeb91a000 	C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.9600.16384_none_62475f7becb72503\COMCTL32.dll
+0x000000006bea0000 - 0x000000006bf72000 	C:\Program Files\Java\jre7\bin\msvcr100.dll
+0x000000006b6d0000 - 0x000000006be99000 	C:\Program Files\Java\jre7\bin\server\jvm.dll
+0x00007ffedaac0000 - 0x00007ffedaac9000 	C:\WINDOWS\SYSTEM32\WSOCK32.dll
+0x00007ffee27e0000 - 0x00007ffee27ff000 	C:\WINDOWS\SYSTEM32\WINMM.dll
+0x00007ffeee1a0000 - 0x00007ffeee1a7000 	C:\WINDOWS\system32\PSAPI.DLL
+0x00007ffeef7f0000 - 0x00007ffeef848000 	C:\WINDOWS\system32\WS2_32.dll
+0x00007ffee27b0000 - 0x00007ffee27da000 	C:\WINDOWS\SYSTEM32\WINMMBASE.dll
+0x00007ffeed8f0000 - 0x00007ffeed8f9000 	C:\WINDOWS\system32\NSI.dll
+0x00007ffeed4d0000 - 0x00007ffeed51a000 	C:\WINDOWS\SYSTEM32\cfgmgr32.dll
+0x00007ffeec0c0000 - 0x00007ffeec0e6000 	C:\WINDOWS\SYSTEM32\DEVOBJ.dll
+0x000000006b6c0000 - 0x000000006b6cf000 	C:\Program Files\Java\jre7\bin\verify.dll
+0x000000006b690000 - 0x000000006b6b8000 	C:\Program Files\Java\jre7\bin\java.dll
+0x000000006b670000 - 0x000000006b685000 	C:\Program Files\Java\jre7\bin\zip.dll
+
+VM Arguments:
+jvm_args: -Dfile.encoding=Cp1252 -Xbootclasspath:D:\apps\adt-bundle-windows-x86_64-20130917\sdk\platforms\android-17\android.jar 
+java_command: com.himz.chart.Chart
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+PATH=C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Calibre2\;C:\Program Files (x86)\Git\cmd;C:\Program Files (x86)\Git\bin
+USERNAME=Himanshu
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 42 Stepping 7, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 8 , 64 bit Build 9200 
+
+CPU:total 4 (2 cores per cpu, 2 threads per core) family 6 model 42 stepping 7, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, aes, ht, tsc, tscinvbit
+
+Memory: 4k page, physical 6175728k(3195840k free), swap 7158768k(3604976k free)
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (24.45-b08) for windows-amd64 JRE (1.7.0_45-b18), built on Oct  8 2013 05:47:22 by "java_re" with unknown MS VC++:1600
+
+time: Mon Nov 04 14:04:44 2013
+elapsed time: 0 seconds
+
