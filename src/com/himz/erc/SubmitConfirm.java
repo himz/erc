@@ -154,8 +154,12 @@ Button btnChat;
 		if("I want to rest".toLowerCase().trim().equals(globalSentence.toLowerCase().trim())) {
 			globalSpact ="propose(john, dr, [[e_rest, activity_type, resting],[e_rest, agent, john]] )";
 		}	
-		
-		
+		if("john can stop doing leg_lifts".toLowerCase().trim().equals(globalSentence.toLowerCase().trim())) {
+			globalSpact ="accept(dr,john,[e1,current_state,suspended])";
+		}	
+		if("I don't want to do leg_lifts".toLowerCase().trim().equals(globalSentence.toLowerCase().trim())) {
+			globalSpact ="propose(john,dr,[e1,current_state,suspended])";
+		}
 		return globalSpact;
 	}
 	
@@ -244,7 +248,7 @@ Button btnChat;
 
 			GetMethodEx test = new GetMethodEx();
 			String returned = null;
-			String serverURL = "http://209.129.244.24:5000/diga_sys";
+			String serverURL = "http://209.129.244.133:5000/diga_sys";
 			String sentence = "";		// Change it to dynamically getting from the text box
 			String spact = "propose(dr,john,[e1,exercise_type,leg_lifts])";	 // Change it to get dynamically
 			String url= "";
